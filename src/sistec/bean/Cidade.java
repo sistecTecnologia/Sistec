@@ -15,6 +15,11 @@ public class Cidade {
     private String nome;
     private int ibge;
 
+    public Cidade() {
+    }
+
+    
+    
     public int getIdCidade() {
         return idCidade;
     }
