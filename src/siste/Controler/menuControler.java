@@ -9,14 +9,11 @@ import sistec.Cadastro.Controler.usuariosControler;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sistec.Cadastro.Controler.clientesControler;
 import sistec.Cadastro.Controler.empresaControler;
 import sistec.Produto.Controler.produtosControler;
 import sistec.bean.Empresa;
-import sistec.dao.empresaDao;
 import sistec.visao.Menu;
 import uteis.MetodosDeControler;
 

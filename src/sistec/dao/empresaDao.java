@@ -16,20 +16,20 @@ import sistec.bean.Empresa;
  * @author SERVIDOR
  */
 public class empresaDao {
-    
+
     Empresa empresa = new Empresa();
-    
+
     public void salvarEmpresa(Empresa empresa, Connection conn) throws SQLException, Exception {
         this.empresa = empresa;
         if (empresa.getIdEmpresa() == 0) {
-            
+
             salvarEmpresa(conn);
         } else {
             alterarEmpresa(conn);
         }
-        
+
     }
-    
+
     private void salvarEmpresa(Connection conn) throws SQLException, Exception {
         String sql = "insert into empresa (razaoSocial,cnpj,inscricaoEstadual,nomeFantasia,telefone,endereco,bairro,quadra,lote,atualizacao)"
                 + "values(?,?,?,?,?,?,?,?,?,?)";
@@ -49,9 +49,9 @@ public class empresaDao {
         } catch (SQLException ex) {
             throw new Exception(ex.getMessage());
         }
-        
+
     }
-    
+
     private void alterarEmpresa(Connection conn) throws SQLException, Exception {
         String sql = "update empresa set razaoSocial = ?,"// 1
                 + "inscricaoEstadual = ?,"//2
@@ -76,12 +76,12 @@ public class empresaDao {
             pstm.setString(i++, empresa.getCnpj());
             pstm.setInt(i++, empresa.getIdEmpresa());
             pstm.execute();
-            
+
         } catch (SQLException ex) {
             throw new Exception(ex.getMessage());
         }
     }
-    
+
     public void getEmpresa(Empresa empresa, Connection con) throws SQLException, Exception {
         String sql = "Select * from empresa ";
         try (PreparedStatement pstm = con.prepareStatement(sql)) {
@@ -99,7 +99,7 @@ public class empresaDao {
                     empresa.setInscricaoEstadual(dados.getString("inscricaoEstadual"));
                 }
             }
-            
+
         } catch (SQLException e) {
             throw new Exception(e.getMessage());
         }
