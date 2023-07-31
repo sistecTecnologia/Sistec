@@ -1,0 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uteis;
+
+import javax.swing.JTextField;
+
+/**
+ *
+ * @author SERVIDOR
+ */
+public class Uteis {
+
+    public void validarJtxfield(JTextField jtextField, String nomeCampo) throws Exception {
+        if (jtextField.getText() == null || jtextField.getText().equals("")) {
+            throw new Exception(nomeCampo + " Obrigatorio");
+
+        }
+    }
+}

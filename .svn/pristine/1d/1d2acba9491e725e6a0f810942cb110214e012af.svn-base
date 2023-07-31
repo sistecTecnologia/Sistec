@@ -1,0 +1,81 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package sistec.Cadastro.Controler;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import sistec.bean.Marca;
+import sistec.dao.marcaDao;
+import sistec.visao.MarcaCons;
+import uteis.MetodosDeControler;
+
+/**
+ *
+ * @author SERVIDOR
+ */
+public class marcaControler extends MetodosDeControler implements ActionListener {
+
+    MarcaCons marcaCons = new MarcaCons(new javax.swing.JFrame(), true);
+    Marca marca;
+    List<Marca> lstMarca;
+
+    public marcaControler() throws SQLException {
+        getListaMarca();
+        marcaCons.desabilitarBotes(true, false, true, false);
+        marcaCons.addActionListener(this);
+        marcaCons.setVisible(true);
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        switch (e.getActionCommand()) {
+
+            case "novaMarca":
+                novaMarca();
+                break;
+            case "salvarMarca": {
+                try {
+                    salvarMarca();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+            break;
+
+        }
+
+    }
+
+    private void novaMarca() {
+        marcaCons.desabilitarBotes(true, false, true, true);
+        marcaCons.desabilitarCampos(true, true);
+    }
+
+    private void salvarMarca() throws SQLException {
+        marca = new Marca();
+        marcaCons.getMarca(marca);
+        inicializarConexaoBD();
+        new marcaDao().salvarMarca(marca, conn);
+        finalizarConexao();
+    }
+
+    private void getListaMarca() throws SQLException {
+        lstMarca = new ArrayList<>();
+        inicializarConexaoBD();
+        new marcaDao().getLista(lstMarca, conn);
+        finalizarConexao();
+        marcaCons.setList(lstMarca);
+    }
+
+}

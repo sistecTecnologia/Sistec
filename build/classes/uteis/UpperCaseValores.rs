@@ -1,0 +1,1 @@
+brSoft.uteis.CaseLimited.UpperCaseValores

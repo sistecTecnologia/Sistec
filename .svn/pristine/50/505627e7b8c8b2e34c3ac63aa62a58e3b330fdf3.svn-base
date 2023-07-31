@@ -1,0 +1,49 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package sistec.Cadastro.Controler;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import sistec.visao.ProdutosCadastro;
+import sistec.visao.ProdutosCons;
+
+/**
+ *
+ * @author CASSIO JUNIOR
+ */
+public class produtosControler implements ActionListener {
+
+    ProdutosCons produtoCons = new ProdutosCons(new javax.swing.JFrame(), true);
+//    ProdutosCadastro produtoCad = new ProdutosCadastro(new javax.swing.JFrame(), true);
+
+    public produtosControler() {
+        produtoCons.addActionListener(this);
+        produtoCons.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getActionCommand());
+        switch (e.getActionCommand()) {
+            case "NovoProduto":
+                novoProduto();
+                break;
+            case "marca":
+                consultaMarca();
+                break;
+        }
+    }
+
+    private void consultaMarca() {
+        new marcaControler();
+    }
+
+    private void novoProduto() {
+        ProdutosCadastro produtoCad = new ProdutosCadastro(new javax.swing.JFrame(), true);
+        produtoCad.addActionListene(this);
+        produtoCad.setVisible(true);
+    }
+}

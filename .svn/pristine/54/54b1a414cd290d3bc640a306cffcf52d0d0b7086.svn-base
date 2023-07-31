@@ -1,0 +1,72 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package sistec.Produto.Controler;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import sistec.bean.produto.Aliquota;
+import sistec.bean.produto.Marca;
+import sistec.visao.Produto.ProdutosCadastro;
+import sistec.visao.Produto.ProdutosCons;
+
+/**
+ *
+ * @author CASSIO JUNIOR
+ */
+public class produtosControler implements ActionListener {
+
+    ProdutosCadastro produtoCad = new ProdutosCadastro(new javax.swing.JFrame(), true);
+    ProdutosCons produtoCons = new ProdutosCons(new javax.swing.JFrame(), true);
+//    ProdutosCadastro produtoCad = new ProdutosCadastro(new javax.swing.JFrame(), true);
+
+    public produtosControler() {
+        produtoCons.addActionListener(this);
+        produtoCons.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getActionCommand());
+        switch (e.getActionCommand()) {
+            case "NovoProduto":
+                novoProduto();
+                break;
+            case "marca": {
+                try {
+                    consultaMarca();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+            break;
+            case "ConsultaAliquota":
+                ConsultaAliquota();
+                break;
+        }
+    }
+
+    private void ConsultaAliquota() {
+        Aliquota aliquota = new Aliquota();
+        new aliquotaControler(aliquota);
+        System.out.println("reste");
+    }
+
+    private void consultaMarca() throws SQLException {
+        Marca marca = new Marca();
+        new marcaControler(marca);
+        produtoCad.setMarca(marca);
+    }
+
+    private void novoProduto() {
+        produtoCad = new ProdutosCadastro(new javax.swing.JFrame(), true);
+        produtoCad.addActionListene(this);
+        produtoCad.setVisible(true);
+    }
+}
