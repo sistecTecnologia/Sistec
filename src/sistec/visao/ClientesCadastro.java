@@ -112,7 +112,7 @@ public class ClientesCadastro extends javax.swing.JDialog {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 330, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistec/imagens/FUNDO/BARRA DE FUNDO.jpeg"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 60));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 60));
 
         jBtnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistec/imagens/18x18/Save.png"))); // NOI18N
         jBtnSalvar.setText("Salvar");
