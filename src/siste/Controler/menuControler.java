@@ -8,6 +8,7 @@ package siste.Controler;
 import sistec.Cadastro.Controler.usuariosControler;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -46,8 +47,15 @@ public class menuControler extends MetodosDeControler implements ActionListener 
             }
             break;
             case "Produtos":
-                produtos();
+            {
+                try {
+                    produtos();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
                 break;
+
             case "Empresa": {
                 try {
                     empresa();
@@ -80,7 +88,7 @@ public class menuControler extends MetodosDeControler implements ActionListener 
         new usuariosControler();
     }
 
-    private void produtos() {
+    private void produtos() throws SQLException {
         new produtosControler();
     }
 }
