@@ -33,9 +33,12 @@ public class produtosControler extends MetodosDeControler implements ActionListe
     ProdutosCons produtoCons = new ProdutosCons(new javax.swing.JFrame(), true);
 //    ProdutosCadastro produtoCad = new ProdutosCadastro(new javax.swing.JFrame(), true);
     List<GradeProduto> lstGrade = new ArrayList<>();
+    Produto produto;
 
-    public produtosControler() throws SQLException {
+    public produtosControler() throws SQLException, Exception {
+        System.out.println(getEmpresa().getNomeFantasia());
         getListaProduto();
+
         produtoCons.addActionListener(this);
         produtoCons.setVisible(true);
     }
@@ -78,14 +81,27 @@ public class produtosControler extends MetodosDeControler implements ActionListe
                 }
             }
             break;
+            case "AlterarProduto": {
+                try {
+                    alterarProduto();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+            break;
         }
+    }
+
+    private void alterarProduto() throws Exception {
+        produto = produtoCons.getProdutoSelecionado();
+
     }
 
     private void salvarProduto() throws SQLException {
         Produto produto = new Produto();
         produtoCad.getProduto(produto);
         try {
-
+            getEmpresa().getBairro();
             inicializarConexaoBD();
             new produtoDao().salvarProduto(produto, conn);
             finalizarConexao();
@@ -132,6 +148,7 @@ public class produtosControler extends MetodosDeControler implements ActionListe
         inicializarConexaoBD();
         new produtoDao().getListaSimplesProduto(lstProduto, conn);
         finalizarConexao();
+        produtoCons.setList(lstProduto);
 
     }
 }

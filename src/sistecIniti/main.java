@@ -6,6 +6,7 @@
 package sistecIniti;
 
 import javax.swing.JOptionPane;
+import javax.swing.UnsupportedLookAndFeelException;
 import siste.Controler.loginControler;
 import sistec.Cadastro.Controler.empresaControler;
 import sistec.bean.Empresa;
@@ -18,10 +19,9 @@ import uteis.MetodosDeControler;
  */
 public class main extends MetodosDeControler {
 
-    public static void main(String args[]) {
-
+    public static void main(String args[]) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+        javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
         int versaoSistema = 1;
-        System.out.println("teste");
         try {
 //            new inicializarDao().criarBanco();
 //            new sistec.SisTec();

@@ -70,9 +70,23 @@ public class marcaControler extends MetodosDeControler implements ActionListener
                 }
             }
             break;
-
+            case "Excluir": {
+                try {
+                    excluirMarca();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
         }
 
+    }
+
+    private void excluirMarca() throws Exception {
+        Marca marca = marcaCons.getMarcaSelecionado();
+        inicializarConexaoBD();
+        new marcaDao().excluirMarca(marca.getIdMarca(), conn);
+        finalizarConexao();
+        getListaMarca();
     }
 
     private void selecionarMarca() throws Exception {
@@ -103,6 +117,7 @@ public class marcaControler extends MetodosDeControler implements ActionListener
         inicializarConexaoBD();
         new marcaDao().salvarMarca(marca, conn);
         finalizarConexao();
+        getListaMarca();
     }
 
     private void getListaMarca() throws SQLException {

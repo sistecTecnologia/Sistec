@@ -19,17 +19,17 @@ import sistec.dao.SistecDao;
  * @author SERVIDOR
  */
 public class produtoDao {
-
+    
     Connection con;
-
+    
     public void salvarProduto(Produto p, Connection con) throws SQLException {
         this.con = con;
         if (p.getIdProduto() == 0) {
             incluir(p);
         }
-
+        
     }
-
+    
     private void incluir(Produto p) throws SQLException {
         String sql = "insert into produto(descricao,marca,idmarca,cest,ncm,estoque,precoCusto,idAliquota,aliquota,status)values(?,?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement pstm = con.prepareStatement(sql)) {
@@ -46,14 +46,14 @@ public class produtoDao {
             pstm.execute();
             p.setIdProduto(new SistecDao().getUltimoPrimaryKey("Produto", "idProduto", con));
             new gradeProdutoDao().salvarGrade(p, con);
-
+            
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }
     }
-
+    
     public void getListaSimplesProduto(List<Produto> lstProduto, Connection con) throws SQLException {
-        String sql = "select gp.idproduto,gp.referencia,gp.gtin,p.descricao,gp.valoravista,gp.valorAprazo from gradeproduto gp inner join produto p on (gp.idproduto=p.idproduto) where gp.status='A'";
+        String sql = "select gp.idproduto,gp.referencia,gp.gtin,p.descricao,gp.valoravista,gp.valorAprazo,p.estoque,gp.unidade,gp.volume from gradeproduto gp inner join produto p on (gp.idproduto=p.idproduto) where gp.status='A'";
         try (PreparedStatement pstm = con.prepareStatement(sql)) {
             ResultSet dados = pstm.executeQuery();
             while (dados.next()) {
@@ -65,12 +65,44 @@ public class produtoDao {
                 gp.setGtin(dados.getString("gtin"));
                 gp.setValorAPrazo(dados.getDouble("valorAprazo"));
                 gp.setValorAvista(dados.getDouble("valorAvista"));
+                gp.setUnidade(dados.getString("unidade"));
+                gp.setVolume(dados.getDouble("volume"));
                 p.setDescricaoProduto(dados.getString("descricao"));
+                p.setEstoque(dados.getDouble("estoque"));
                 p.getLstGradeProduto().add(gp);
                 lstProduto.add(p);
-
+                
             }
         }
     }
-
+    
+    private void consultaProdutoCompleto(Produto p, Connection con) throws SQLException {
+        String sql = "select p.idProduto,p.descricao,p.marca,p.idmarca,p.cest,p.ncm,p.estoque,p.precoCusto,p.idAliquota,"
+                + "p.aliquota ,gp.idproduto,gp.referencia,gp.gtin,gp.valoravista,gp.valorAprazo,gp.volume,gp.unidade from gradeProduto gp "
+                + "inner join produto p on(p.idproduto=gp.idproduto) where gp.status='A' and p.idProduto=?";
+        try (PreparedStatement pstm = con.prepareStatement(sql)) {
+            pstm.setInt(1, p.getIdProduto());
+            ResultSet dados = pstm.executeQuery();
+            while (dados.next()) {
+                p.setDescricaoProduto(dados.getString("descricao"));
+                p.getMarca().setIdMarca(dados.getInt("idmarca"));
+                p.getMarca().setNomeMarca(dados.getString("marca"));
+                p.setCest(dados.getString("cest"));
+                p.setNcm(dados.getString("ncm"));
+                p.setPrecoCusto(dados.getDouble("precoCusto"));
+                p.getAliquota().setIdAliquota(dados.getInt("idAliquota"));
+                p.getAliquota().setAliquota(dados.getString("aliquota"));
+                
+                
+                
+            }
+            
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+    private void consultaGradeProdutoPorId(int idProduto,Connection con){
+        
+    }
+    
 }

@@ -21,6 +21,7 @@ import sistec.bean.produto.GradeProduto;
 import sistec.bean.produto.Marca;
 import sistec.bean.produto.Produto;
 import sistec.tableModel.Produto.GradeProdutoTableModel;
+import uteis.FieldListener;
 import uteis.UpperCaseLimitado;
 import uteis.UpperCaseParaNumerico;
 
@@ -49,6 +50,7 @@ public class ProdutosCadastro extends javax.swing.JDialog {
         jTxfIdAliquota.setDocument(new UpperCaseParaNumerico(4));
         jTxfIdMarca.setDocument(new UpperCaseParaNumerico(4));
         jTxfNcm.setDocument(new UpperCaseParaNumerico(8));
+        jTxfDescricao.addFocusListener(new FieldListener());
         this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "escape");
         this.getRootPane().getActionMap().put("escape", new AbstractAction() {
             @Override
@@ -117,6 +119,10 @@ public class ProdutosCadastro extends javax.swing.JDialog {
         p.setEstoque(Double.parseDouble(jTxfEstoque.getText()));
         p.setPrecoCusto(Double.parseDouble(jTxfCusto.getText()));
         p.setLstGradeProduto(lstGp);
+
+    }
+
+    public void setProduto(Produto p) {
 
     }
 

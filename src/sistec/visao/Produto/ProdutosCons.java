@@ -46,9 +46,10 @@ public class ProdutosCons extends javax.swing.JDialog {
             }
         });
     }
+
     public static void main(String[] args) {
         new ProdutosCons(new javax.swing.JFrame(), true).setVisible(true);
-        
+
     }
 
     public void addActionListener(ActionListener listener) {
@@ -113,6 +114,7 @@ public class ProdutosCons extends javax.swing.JDialog {
 
         jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistec/imagens/18x18/Modify.png"))); // NOI18N
         jBtnAlterar.setText("Alterar");
+        jBtnAlterar.setActionCommand("AlterarProduto");
         jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnAlterarActionPerformed(evt);
@@ -192,4 +194,16 @@ public class ProdutosCons extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTblConsultaProdutos;
     // End of variables declaration//GEN-END:variables
+ public void setList(List<Produto> lst) {
+        jTblConsultaProdutos.setModel(new ProdutosTableModel(lst));
+        jTblConsultaProdutos.setColumnModel(new ListaProdutoColumModel());
+    }
+
+    public Produto getProdutoSelecionado() throws Exception {
+        if (jTblConsultaProdutos.getSelectedRow() == -1) {
+            throw new Exception("Nao foi selecionado nenhum Usuario");
+        }
+        return ((ProdutosTableModel) jTblConsultaProdutos.getModel()).getValores(jTblConsultaProdutos.getSelectedRow());
+
+    }
 }

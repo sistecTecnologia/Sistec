@@ -49,7 +49,10 @@ public class MetodosDeControler {
 
     protected Empresa getEmpresa() throws Exception {
         inicializarConexaoBD();
-        new empresaDao().getEmpresa(empresa, conn);
+        if (empresa.getIdEmpresa() ==0) {
+
+            new empresaDao().getEmpresa(empresa, conn);
+        }
 //        finalizarConexao();
         return empresa;
     }

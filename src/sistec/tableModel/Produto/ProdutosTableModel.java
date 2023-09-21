@@ -23,11 +23,6 @@ public class ProdutosTableModel extends AbstractTableModel {
 
     }
 
-//    @Override
-//    public String getColumnName(int column) {
-//        return colunas[column];
-//    }
-
     @Override
     public int getRowCount() {
         return LstProduto.size();
@@ -51,9 +46,22 @@ public class ProdutosTableModel extends AbstractTableModel {
                 return p.getLstGradeProduto().get(0).getGtin();
             case 3:
                 return p.getDescricaoProduto();
+            case 4:
+                return p.getEstoque();
+            case 5:
+                return p.getLstGradeProduto().get(0).getUnidade();
+            case 6:
+                return p.getLstGradeProduto().get(0).getVolume();
+            case 7:
+                return uteis.Uteis.formatarMoeda(p.getLstGradeProduto().get(0).getValorAvista());
+            case 8:
+                return uteis.Uteis.formatarMoeda(p.getLstGradeProduto().get(0).getValorAPrazo());
 
         }
         return null;
+    }
+     public Produto getValores(int rowIndex) {
+        return LstProduto.get(rowIndex);
     }
 
 }

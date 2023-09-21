@@ -5,6 +5,9 @@
  */
 package uteis;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import javax.swing.JTextField;
 
 /**
@@ -12,6 +15,10 @@ import javax.swing.JTextField;
  * @author SERVIDOR
  */
 public class Uteis {
+
+    public static void main(String[] args) {
+        System.out.println(getDouble2Decimais(11.00));
+    }
 
     public void validarJtxfield(JTextField jtextField, String nomeCampo) throws Exception {
         if (jtextField.getText() == null || jtextField.getText().equals("")) {
@@ -26,6 +33,11 @@ public class Uteis {
 
     public static double getDouble3Decimais(double valor) {
         return Double.valueOf(String.format("%.3f", valor).replaceAll("\\.", "").replaceAll(",", "\\."));
+
+    }
+
+    public static double getDouble2Decimais(double valor) {
+        return Double.valueOf(String.format("%.2f", valor).replaceAll("\\.", "").replaceAll(",", "\\."));
     }
 
     public static double getDouble2Decimais(String valor) {
@@ -44,6 +56,18 @@ public class Uteis {
             return Double.valueOf(valor);
         }
         return Double.parseDouble(valor.replaceAll("\\.", "").replaceAll(",", "."));
+    }
+
+    public static String formatarMoeda(double valor) {
+        if (Double.isNaN(valor) || Double.isInfinite(valor)) {
+            valor = 0;
+        }
+
+        final Locale BRAZIL = new Locale("pt", "BR");
+        final DecimalFormatSymbols REAL = new DecimalFormatSymbols(BRAZIL);
+        final DecimalFormat DINHEIRO_REAL = new DecimalFormat("###,###,##0.00", REAL);
+
+        return DINHEIRO_REAL.format(valor);
     }
 
     public static String validaIsNumerico(String dados) {

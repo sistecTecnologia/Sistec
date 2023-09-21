@@ -264,6 +264,8 @@ public class inicializarDao extends uteis.MetodosDeControler {
         criarTabela("gradeProduto", "idGradeProduto", 0);
         criarColuna("gradeProduto", "status char(1)");
         criarColuna("produto", "status char(1)");
+        criarColuna("produto", " idempresa int");
+        criarColuna("marca", " idempresa int");
         setAtualiacao(1);
 
     }

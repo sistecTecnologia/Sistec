@@ -152,6 +152,7 @@
               <Image iconType="3" name="/sistec/imagens/18x18/Modify.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Alterar"/>
+            <Property name="actionCommand" type="java.lang.String" value="AlterarProduto"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnAlterarActionPerformed"/>

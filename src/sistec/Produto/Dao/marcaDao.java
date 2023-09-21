@@ -83,4 +83,13 @@ public class marcaDao extends MetodosDeControler {
         }
     }
 
+    public void excluirMarca(int idmarca, Connection con) throws Exception {
+        String sql = "update marca set status='I' where idMarca=? ";
+        try (PreparedStatement pstm = con.prepareStatement(sql)) {
+            pstm.setInt(1, idmarca);
+            pstm.execute();
+        } catch (SQLException e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }
